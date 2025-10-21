@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { X } from 'lucide-react-native';
 import Colors from '@/constants/Colors';
-import { SearchFilters, FurnishingStatus } from '@/types';
+import { SearchFilters } from '@/types';
 import { useState, useEffect } from 'react';
 
 interface FilterModalProps {
@@ -34,14 +34,20 @@ export default function FilterModal({
     setFilters({});
   };
 
-  const toggleFurnishing = (value: FurnishingStatus) => {
-    setFilters(prev => ({
-      ...prev,
-      furnishing: prev.furnishing === value ? undefined : value
-    }));
+  const toggleFurnishing = (furnishingId: number) => {
+    setFilters(prev => {
+      const current = prev.furnishingStatusIds || [];
+      const newIds = current.includes(furnishingId)
+        ? current.filter(id => id !== furnishingId)
+        : [...current, furnishingId];
+      return {
+        ...prev,
+        furnishingStatusIds: newIds.length > 0 ? newIds : undefined
+      };
+    });
   };
 
-  const toggleFeature = (feature: 'terrace' | 'garden' | 'petsAllowed' | 'accessible') => {
+  const toggleFeature = (feature: 'hasTerrace' | 'hasGarden' | 'petsAllowed' | 'hasRampAccess' | 'hasElevator') => {
     setFilters(prev => ({
       ...prev,
       [feature]: !prev[feature]
@@ -99,10 +105,10 @@ export default function FilterModal({
                   style={styles.input}
                   placeholder="Min"
                   keyboardType="numeric"
-                  value={filters.minSurface?.toString() || ''}
+                  value={filters.minSurfaceArea?.toString() || ''}
                   onChangeText={text => setFilters(prev => ({ 
                     ...prev, 
-                    minSurface: text ? parseInt(text) : undefined 
+                    minSurfaceArea: text ? parseInt(text) : undefined 
                   }))}
                 />
                 <Text style={styles.separator}>-</Text>
@@ -110,10 +116,10 @@ export default function FilterModal({
                   style={styles.input}
                   placeholder="Max"
                   keyboardType="numeric"
-                  value={filters.maxSurface?.toString() || ''}
+                  value={filters.maxSurfaceArea?.toString() || ''}
                   onChangeText={text => setFilters(prev => ({ 
                     ...prev, 
-                    maxSurface: text ? parseInt(text) : undefined 
+                    maxSurfaceArea: text ? parseInt(text) : undefined 
                   }))}
                 />
               </View>
@@ -122,20 +128,24 @@ export default function FilterModal({
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>{t('furnishing')}</Text>
               <View style={styles.chipRow}>
-                {(['furnished', 'partially_furnished', 'unfurnished'] as FurnishingStatus[]).map(status => (
+                {[
+                  { id: 1, labelKey: 'furnished' },
+                  { id: 2, labelKey: 'partially_furnished' },
+                  { id: 3, labelKey: 'unfurnished' },
+                ].map(status => (
                   <TouchableOpacity
-                    key={status}
+                    key={status.id}
                     style={[
                       styles.chip,
-                      filters.furnishing === status && styles.chipSelected
+                      filters.furnishingStatusIds?.includes(status.id) && styles.chipSelected
                     ]}
-                    onPress={() => toggleFurnishing(status)}
+                    onPress={() => toggleFurnishing(status.id)}
                   >
                     <Text style={[
                       styles.chipText,
-                      filters.furnishing === status && styles.chipTextSelected
+                      filters.furnishingStatusIds?.includes(status.id) && styles.chipTextSelected
                     ]}>
-                      {t(status)}
+                      {t(status.labelKey)}
                     </Text>
                   </TouchableOpacity>
                 ))}
@@ -146,10 +156,11 @@ export default function FilterModal({
               <Text style={styles.sectionTitle}>{t('features')}</Text>
               <View style={styles.chipRow}>
                 {[
-                  { key: 'terrace' as const, label: t('terrace') },
-                  { key: 'garden' as const, label: t('garden') },
+                  { key: 'hasTerrace' as const, label: t('terrace') },
+                  { key: 'hasGarden' as const, label: t('garden') },
                   { key: 'petsAllowed' as const, label: t('pets_allowed') },
-                  { key: 'accessible' as const, label: t('accessible') },
+                  { key: 'hasRampAccess' as const, label: t('accessible') },
+                  { key: 'hasElevator' as const, label: t('elevator') },
                 ].map(feature => (
                   <TouchableOpacity
                     key={feature.key}

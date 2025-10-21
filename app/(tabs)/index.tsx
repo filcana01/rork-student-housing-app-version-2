@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import Colors from '@/constants/Colors';
 import { useApp, useListings } from '@/contexts/AppContext';
-import { ListingCategory } from '@/types';
+import { mockCategories } from '@/mocks/categories';
 import SearchBar from '@/components/SearchBar';
 import CategoryButton from '@/components/CategoryButton';
 import ListingCard from '@/components/ListingCard';
@@ -15,26 +15,21 @@ export default function HomeScreen() {
   const { filteredListings, applyFilters, filters } = useListings();
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const categories: { id: ListingCategory; label: string }[] = [
-    { id: 'apartment', label: t('category_apartment') },
-    { id: 'room', label: t('category_room') },
-    { id: 'parking', label: t('category_parking') },
-    { id: 'other', label: t('category_other') },
-  ];
-
-  const handleCategoryPress = (category: ListingCategory) => {
-    if (filters.category === category) {
-      applyFilters({ ...filters, category: undefined });
+  const handleCategoryPress = (categoryId: number) => {
+    const currentIds = filters.categoryIds || [];
+    if (currentIds.includes(categoryId)) {
+      const newIds = currentIds.filter(id => id !== categoryId);
+      applyFilters({ ...filters, categoryIds: newIds.length > 0 ? newIds : undefined });
     } else {
-      applyFilters({ ...filters, category });
+      applyFilters({ ...filters, categoryIds: [categoryId] });
     }
   };
 
   const displayListings = searchQuery
     ? filteredListings.filter(listing =>
-        listing.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        listing.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        listing.address.city.toLowerCase().includes(searchQuery.toLowerCase())
+        (listing.title && listing.title.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (listing.description && listing.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (listing.city && listing.city.toLowerCase().includes(searchQuery.toLowerCase()))
       )
     : filteredListings;
 
@@ -62,12 +57,13 @@ export default function HomeScreen() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.categoriesContainer}
         >
-          {categories.map(cat => (
+          {mockCategories.map(cat => (
             <CategoryButton
               key={cat.id}
-              category={cat.id}
-              label={cat.label}
-              selected={filters.category === cat.id}
+              categoryId={cat.id}
+              categoryName={cat.nameIt}
+              label={cat.nameIt}
+              selected={filters.categoryIds?.includes(cat.id) || false}
               onPress={() => handleCategoryPress(cat.id)}
             />
           ))}
@@ -76,7 +72,7 @@ export default function HomeScreen() {
 
       <FlatList
         data={displayListings}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => <ListingCard listing={item} />}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}

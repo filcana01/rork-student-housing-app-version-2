@@ -9,7 +9,7 @@ import { currentUser } from '@/mocks/users';
 export const [AppProvider, useApp] = createContextHook(() => {
   const [language, setLanguage] = useState<Language>('it');
   const [user, setUser] = useState<User | null>(null);
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const [favorites, setFavorites] = useState<number[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export const [AppProvider, useApp] = createContextHook(() => {
     await AsyncStorage.removeItem('user');
   }, []);
 
-  const toggleFavorite = useCallback(async (listingId: string) => {
+  const toggleFavorite = useCallback(async (listingId: number) => {
     const newFavorites = favorites.includes(listingId)
       ? favorites.filter(id => id !== listingId)
       : [...favorites, listingId];
@@ -70,7 +70,7 @@ export const [AppProvider, useApp] = createContextHook(() => {
     await AsyncStorage.setItem('favorites', JSON.stringify(newFavorites));
   }, [favorites]);
 
-  const isFavorite = useCallback((listingId: string): boolean => {
+  const isFavorite = useCallback((listingId: number): boolean => {
     return favorites.includes(listingId);
   }, [favorites]);
 
@@ -94,35 +94,39 @@ export const [ListingsProvider, useListings] = createContextHook(() => {
 
   const filteredListings = useMemo(() => {
     return listings.filter(listing => {
-      if (listing.status !== 'active') return false;
+      if (listing.listingStatus?.id !== 4) return false;
       
-      if (filters.category && listing.category !== filters.category) return false;
+      if (filters.categoryIds && filters.categoryIds.length > 0 && listing.idCategory) {
+        if (!filters.categoryIds.includes(listing.idCategory)) return false;
+      }
       
-      if (filters.minPrice && listing.price < filters.minPrice) return false;
-      if (filters.maxPrice && listing.price > filters.maxPrice) return false;
+      if (filters.minPrice && listing.monthlyRent && listing.monthlyRent < filters.minPrice) return false;
+      if (filters.maxPrice && listing.monthlyRent && listing.monthlyRent > filters.maxPrice) return false;
       
-      if (filters.city && !listing.address.city.toLowerCase().includes(filters.city.toLowerCase())) {
+      if (filters.city && listing.city && !listing.city.toLowerCase().includes(filters.city.toLowerCase())) {
         return false;
       }
       
-      if (filters.minSurface && listing.surface < filters.minSurface) return false;
-      if (filters.maxSurface && listing.surface > filters.maxSurface) return false;
+      if (filters.minSurfaceArea && listing.surfaceArea && listing.surfaceArea < filters.minSurfaceArea) return false;
+      if (filters.maxSurfaceArea && listing.surfaceArea && listing.surfaceArea > filters.maxSurfaceArea) return false;
       
-      if (filters.rooms && listing.rooms !== filters.rooms) return false;
-      if (filters.bathrooms && listing.bathrooms < filters.bathrooms) return false;
+      if (filters.furnishingStatusIds && filters.furnishingStatusIds.length > 0 && listing.idFurnishingStatus) {
+        if (!filters.furnishingStatusIds.includes(listing.idFurnishingStatus)) return false;
+      }
       
-      if (filters.furnishing && listing.furnishing !== filters.furnishing) return false;
-      
-      if (filters.terrace && !listing.features.terrace) return false;
-      if (filters.garden && !listing.features.garden) return false;
-      if (filters.petsAllowed && !listing.features.petsAllowed) return false;
-      if (filters.accessible && !listing.features.accessible) return false;
+      if (filters.hasTerrace && !listing.hasTerrace) return false;
+      if (filters.hasGarden && !listing.hasGarden) return false;
+      if (filters.petsAllowed && !listing.petsAllowed) return false;
+      if (filters.hasRampAccess && !listing.hasRampAccess) return false;
+      if (filters.hasElevator && !listing.hasElevator) return false;
+      if (filters.acceptsSwissCaution && !listing.acceptsSwissCaution) return false;
+      if (filters.isAvailableImmediately && !listing.isAvailableImmediately) return false;
       
       return true;
     });
   }, [listings, filters]);
 
-  const getListingById = useCallback((id: string): Listing | undefined => {
+  const getListingById = useCallback((id: number): Listing | undefined => {
     return listings.find(listing => listing.id === id);
   }, [listings]);
 
@@ -134,8 +138,8 @@ export const [ListingsProvider, useListings] = createContextHook(() => {
     setFilters({});
   }, []);
 
-  const getUserListings = useCallback((userId: string): Listing[] => {
-    return listings.filter(listing => listing.ownerId === userId);
+  const getUserListings = useCallback((userId: number): Listing[] => {
+    return listings.filter(listing => listing.idUser === userId);
   }, [listings]);
 
   return useMemo(() => ({
@@ -157,10 +161,10 @@ export function useFilteredListings(searchQuery?: string) {
     
     const query = searchQuery.toLowerCase();
     return filteredListings.filter(listing => 
-      listing.title.toLowerCase().includes(query) ||
-      listing.description.toLowerCase().includes(query) ||
-      listing.address.city.toLowerCase().includes(query) ||
-      listing.address.street.toLowerCase().includes(query)
+      (listing.title && listing.title.toLowerCase().includes(query)) ||
+      (listing.description && listing.description.toLowerCase().includes(query)) ||
+      (listing.city && listing.city.toLowerCase().includes(query)) ||
+      (listing.address && listing.address.toLowerCase().includes(query))
     );
   }, [filteredListings, searchQuery]);
 }

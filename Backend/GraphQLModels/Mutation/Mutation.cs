@@ -253,7 +253,7 @@ public class Mutation : ObjectGraphType
 
     // RIMUOVE ANNUNCIO DAI PREFERITI
     // Necessaria al front end per impostare il toggle del "cuoricino"
-    // È un BooleanGraphType perchè elimina qualcosa, quindi l'unico feedback utile è sapere se ha avuto successo (true) o fallito (false) nella cancellazione.
+    // Ãˆ un BooleanGraphType perchÃ¨ elimina qualcosa, quindi l'unico feedback utile Ã¨ sapere se ha avuto successo (true) o fallito (false) nella cancellazione.
     public void RemoveListingFromFavorites()
     { 
         Field<BooleanGraphType>("removeFavorite")
@@ -279,7 +279,7 @@ public class Mutation : ObjectGraphType
             });
     }
 
-    // VERIFICA CONFORMITÀ ANNUNCIO (PER ADMIN)
+    // VERIFICA CONFORMITÃ€ ANNUNCIO (PER ADMIN)
     private void VerifyListing()
     {
         Field<ListingModelGraphType>("verifyListing")

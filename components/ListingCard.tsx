@@ -23,7 +23,8 @@ export default function ListingCard({ listing }: ListingCardProps) {
     toggleFavorite(listing.id);
   };
 
-  const categoryColor = Colors.categories[listing.category];
+  const categoryKey = listing.category?.nameEn?.toLowerCase() || 'apartment';
+  const categoryColor = Colors.categories[categoryKey as keyof typeof Colors.categories] || Colors.primary;
 
   return (
     <TouchableOpacity 
@@ -33,7 +34,7 @@ export default function ListingCard({ listing }: ListingCardProps) {
     >
       <View style={styles.imageContainer}>
         <Image 
-          source={{ uri: listing.images[0] }} 
+          source={{ uri: listing.images?.[0]?.videoUrl || '' }} 
           style={styles.image}
           resizeMode="cover"
         />
@@ -48,11 +49,13 @@ export default function ListingCard({ listing }: ListingCardProps) {
             strokeWidth={2}
           />
         </TouchableOpacity>
-        <View style={[styles.categoryBadge, { backgroundColor: categoryColor }]}>
-          <Text style={styles.categoryText}>
-            {t(`category_${listing.category}`)}
-          </Text>
-        </View>
+        {listing.category && (
+          <View style={[styles.categoryBadge, { backgroundColor: categoryColor }]}>
+            <Text style={styles.categoryText}>
+              {listing.category.nameIt}
+            </Text>
+          </View>
+        )}
       </View>
       
       <View style={styles.content}>
@@ -63,34 +66,36 @@ export default function ListingCard({ listing }: ListingCardProps) {
         <View style={styles.locationRow}>
           <MapPin size={14} color={Colors.textSecondary} />
           <Text style={styles.location} numberOfLines={1}>
-            {listing.address.city}
+            {listing.city}
           </Text>
         </View>
 
         <View style={styles.detailsRow}>
-          <Text style={styles.surface}>
-            {listing.surface} {t('sqm')}
-          </Text>
-          {listing.rooms && (
+          {listing.surfaceArea && (
+            <Text style={styles.surface}>
+              {listing.surfaceArea} {t('sqm')}
+            </Text>
+          )}
+          {listing.numberOfRooms && (
             <>
               <Text style={styles.dot}>•</Text>
               <Text style={styles.detail}>
-                {listing.rooms} {t('rooms')}
+                {listing.numberOfRooms} {t('rooms')}
               </Text>
             </>
           )}
-          {listing.bathrooms > 0 && (
+          {listing.numberOfBathrooms && listing.numberOfBathrooms > 0 && (
             <>
               <Text style={styles.dot}>•</Text>
               <Text style={styles.detail}>
-                {listing.bathrooms} {t('bathrooms')}
+                {listing.numberOfBathrooms} {t('bathrooms')}
               </Text>
             </>
           )}
         </View>
         
         <View style={styles.priceRow}>
-          <Text style={styles.price}>€{listing.price}</Text>
+          <Text style={styles.price}>CHF {listing.monthlyRent}</Text>
           <Text style={styles.perMonth}>{t('per_month')}</Text>
         </View>
       </View>

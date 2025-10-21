@@ -34,6 +34,7 @@ export const translations: Record<Language, Record<string, string>> = {
     garden: 'Giardino',
     pets_allowed: 'Animali Ammessi',
     accessible: 'Accessibile',
+    elevator: 'Ascensore',
     
     per_month: '/mese',
     sqm: 'm²',
@@ -117,6 +118,7 @@ export const translations: Record<Language, Record<string, string>> = {
     garden: 'Garden',
     pets_allowed: 'Pets Allowed',
     accessible: 'Accessible',
+    elevator: 'Elevator',
     
     per_month: '/month',
     sqm: 'm²',

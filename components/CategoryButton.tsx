@@ -1,24 +1,33 @@
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Home, Bed, CarFront, MoreHorizontal } from 'lucide-react-native';
 import Colors from '@/constants/Colors';
-import { ListingCategory } from '@/types';
 
 interface CategoryButtonProps {
-  category: ListingCategory;
+  categoryId: number;
+  categoryName: string;
   label: string;
   selected: boolean;
   onPress: () => void;
 }
 
-export default function CategoryButton({ category, label, selected, onPress }: CategoryButtonProps) {
-  const IconComponent = {
-    apartment: Home,
-    room: Bed,
-    parking: CarFront,
-    other: MoreHorizontal,
-  }[category];
+export default function CategoryButton({ categoryId, categoryName, label, selected, onPress }: CategoryButtonProps) {
+  const iconMap: Record<number, any> = {
+    1: Home,
+    2: Bed,
+    3: CarFront,
+    4: MoreHorizontal,
+  };
+  
+  const IconComponent = iconMap[categoryId] || Home;
 
-  const categoryColor = Colors.categories[category];
+  const colorMap: Record<number, string> = {
+    1: Colors.categories.apartment,
+    2: Colors.categories.room,
+    3: Colors.categories.parking,
+    4: Colors.categories.other,
+  };
+  
+  const categoryColor = colorMap[categoryId] || Colors.primary;
 
   return (
     <TouchableOpacity
