@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, Image, Dimensions, TouchableOpacity } from 'react-native';
-import { useLocalSearchParams, router } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { MapPin, Home, Maximize, BedDouble, Bath, Calendar, Clock, CheckCircle2, XCircle, Heart } from 'lucide-react-native';
 import Colors from '@/constants/Colors';
@@ -174,10 +174,7 @@ export default function ListingDetailScreen() {
       </ScrollView>
 
       <View style={styles.footer}>
-        <TouchableOpacity 
-          style={styles.contactButton}
-          onPress={() => router.push(`/chat/${listing.idUser}?listingId=${listing.id}`)}
-        >
+        <TouchableOpacity style={styles.contactButton}>
           <Text style={styles.contactButtonText}>{t('contact_owner')}</Text>
         </TouchableOpacity>
       </View>

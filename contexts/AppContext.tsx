@@ -116,7 +116,6 @@ export const [ListingsProvider, useListings] = createContextHook(() => {
       
       if (filters.hasTerrace && !listing.hasTerrace) return false;
       if (filters.hasGarden && !listing.hasGarden) return false;
-      if (filters.hasPool && !listing.hasPool) return false;
       if (filters.petsAllowed && !listing.petsAllowed) return false;
       if (filters.hasRampAccess && !listing.hasRampAccess) return false;
       if (filters.hasElevator && !listing.hasElevator) return false;

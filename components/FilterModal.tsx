@@ -47,7 +47,7 @@ export default function FilterModal({
     });
   };
 
-  const toggleFeature = (feature: 'hasTerrace' | 'hasGarden' | 'hasPool' | 'petsAllowed' | 'hasRampAccess' | 'hasElevator' | 'acceptsSwissCaution' | 'isAvailableImmediately') => {
+  const toggleFeature = (feature: 'hasTerrace' | 'hasGarden' | 'petsAllowed' | 'hasRampAccess' | 'hasElevator') => {
     setFilters(prev => ({
       ...prev,
       [feature]: !prev[feature]
@@ -158,36 +158,9 @@ export default function FilterModal({
                 {[
                   { key: 'hasTerrace' as const, label: t('terrace') },
                   { key: 'hasGarden' as const, label: t('garden') },
-                  { key: 'hasPool' as const, label: t('pool') },
                   { key: 'petsAllowed' as const, label: t('pets_allowed') },
                   { key: 'hasRampAccess' as const, label: t('accessible') },
                   { key: 'hasElevator' as const, label: t('elevator') },
-                ].map(feature => (
-                  <TouchableOpacity
-                    key={feature.key}
-                    style={[
-                      styles.chip,
-                      filters[feature.key] && styles.chipSelected
-                    ]}
-                    onPress={() => toggleFeature(feature.key)}
-                  >
-                    <Text style={[
-                      styles.chipText,
-                      filters[feature.key] && styles.chipTextSelected
-                    ]}>
-                      {feature.label}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </View>
-
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>{t('availability')}</Text>
-              <View style={styles.chipRow}>
-                {[
-                  { key: 'isAvailableImmediately' as const, label: t('available_immediately') },
-                  { key: 'acceptsSwissCaution' as const, label: t('swiss_caution') },
                 ].map(feature => (
                   <TouchableOpacity
                     key={feature.key}

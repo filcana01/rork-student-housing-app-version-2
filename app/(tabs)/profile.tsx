@@ -1,8 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { User, Settings, Home, LogOut, Globe, ChevronRight, Plus } from 'lucide-react-native';
-import { router } from 'expo-router';
+import { User, Settings, Home, LogOut, Globe, ChevronRight } from 'lucide-react-native';
 import Colors from '@/constants/Colors';
 import { useApp, useListings } from '@/contexts/AppContext';
 
@@ -19,12 +18,6 @@ export default function ProfileScreen() {
   };
 
   const menuItems = [
-    {
-      icon: Plus,
-      label: t('create_listing'),
-      value: '',
-      onPress: () => router.push('/listing/create'),
-    },
     {
       icon: Home,
       label: t('my_listings'),
@@ -64,21 +57,9 @@ export default function ProfileScreen() {
                 {user.firstName} {user.lastName}
               </Text>
               <Text style={styles.userEmail}>{user.email}</Text>
-              {user.isVerified && user.isIndividual && (
-                <View style={[styles.roleBadge, { backgroundColor: Colors.badge.verified_student }]}>
-                  <Text style={styles.roleText}>{t('verified_student')}</Text>
-                </View>
-              )}
-              {user.isAgency && (
-                <View style={[styles.roleBadge, { backgroundColor: Colors.badge.known_company }]}>
-                  <Text style={styles.roleText}>{t('known_company')}</Text>
-                </View>
-              )}
-              {user.isAdmin && (
-                <View style={[styles.roleBadge, { backgroundColor: Colors.badge.admin }]}>
-                  <Text style={styles.roleText}>{t('admin')}</Text>
-                </View>
-              )}
+              <View style={[styles.roleBadge, { backgroundColor: Colors.badge[user.role] }]}>
+                <Text style={styles.roleText}>{t(user.role)}</Text>
+              </View>
             </View>
 
             <View style={styles.menuSection}>
@@ -118,10 +99,7 @@ export default function ProfileScreen() {
             <Text style={styles.loginSubtitle}>
               Accedi per gestire i tuoi annunci e i preferiti
             </Text>
-            <TouchableOpacity 
-              style={styles.loginButton}
-              onPress={() => router.push('/login')}
-            >
+            <TouchableOpacity style={styles.loginButton}>
               <Text style={styles.loginButtonText}>{t('login')}</Text>
             </TouchableOpacity>
           </View>
