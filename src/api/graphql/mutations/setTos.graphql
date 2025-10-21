@@ -1,0 +1,7 @@
+# import "../fragments/TosData.graphql";
+
+mutation SetTos($input: UserDisclaimerModelInput!) {
+  setTos: setDisclaimer(input: $input) {
+    ...TosData
+  }
+}

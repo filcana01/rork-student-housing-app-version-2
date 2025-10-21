@@ -1,0 +1,4 @@
+query GetGlobalData {
+  # add global data if needed
+  __typename
+}

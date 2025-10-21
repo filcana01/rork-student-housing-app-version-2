@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "apollographql.vscode-apollo",
+    "graphql.vscode-graphql-syntax",
+    "atlassian.atlascode",
+    "dbaeumer.vscode-eslint",
+    "donjayamanne.githistory",
+    "dotenv.dotenv-vscode",
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode",
+    "Gruntfuggly.todo-tree",
+    "lokalise.i18n-ally",
+    "redhat.vscode-xml",
+    "vscode-icons-team.vscode-icons",
+    "vscodeshift.mui-snippets"
+  ],
+}

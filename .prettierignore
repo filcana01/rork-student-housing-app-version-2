@@ -1,0 +1,18 @@
+# config
+.husky
+.vscode
+.yarn
+
+# Ignore artifacts:
+coverage
+dist
+
+# dependencies
+node_modules
+
+# public folder
+public
+
+# special stuff in src
+src/assets
+src/locales/*/*.po

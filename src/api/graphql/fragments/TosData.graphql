@@ -1,0 +1,8 @@
+fragment TosData on DisclaimerModel {
+  id
+  contentEn
+  contentIt
+  createdAt
+  accepted
+  acceptedAt
+}

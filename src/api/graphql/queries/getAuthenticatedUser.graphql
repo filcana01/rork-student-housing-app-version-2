@@ -1,0 +1,26 @@
+query GetAuthenticatedUser {
+  authenticatedUser {
+    powers {
+      action
+      enabled
+      feedbacks {
+        messageEn
+        messageIt
+      }
+    }
+    person {
+      firstName
+      lastName
+      fullName
+      photoUrl {
+        low
+        high
+        original
+      }
+    }
+  }
+  settings {
+    key
+    value
+  }
+}

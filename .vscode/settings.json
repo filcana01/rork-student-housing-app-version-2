@@ -1,0 +1,19 @@
+{
+  "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "i18n-ally.localesPaths": [
+    "src/locales"
+  ],
+  "i18n-ally.sourceLanguage": "it",
+  "i18n-ally.displayLanguage": "en",
+  "i18n-ally.keystyle": "nested",
+  "dotenv.enableAutocloaking": false,
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml"
+  },
+  "eslint.useFlatConfig": true
+}

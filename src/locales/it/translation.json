@@ -1,0 +1,49 @@
+{
+  "left-sidebar": {},
+  "authenticated-user": {
+    "theme": {
+      "label": "Tema",
+      "light": "Chiaro",
+      "dark": "Scuro",
+      "system": "Sistema"
+    },
+    "screen": {
+      "label": "Schermo",
+      "normal": "Normale",
+      "full": "Pieno"
+    },
+    "language": {
+      "label": "Lingua",
+      "english": "Inglese",
+      "italian": "Italiano"
+    },
+    "logout": "Logout"
+  },
+  "about": {
+    "description": "{{ appName }} è l'applicazione del nuovo sistema informativo USI Inside che permette di...",
+    "release-info": {
+      "title": "Informazioni sul rilascio",
+      "message": "Versione {{ version }}, disponibile dal {{ date }}"
+    }
+  },
+  "help-menu": {
+    "title": "Aiuto",
+    "tutorial": "Tutorial",
+    "help-request": "Richiesta di aiuto",
+    "about": "A proposito di {{ appName }}",
+    "privacy-info-and-tos": "Informativa privacy e termini di servizio"
+  },
+  "privacy-info-and-tos": {
+    "labels": {
+      "updated-at": "Ultimo aggiornamento: {{datetime}}",
+      "accepted-at": "Lettura: {{datetime}}",
+      "accept-button": "Ho letto e preso atto di quanto scritto"
+    }
+  },
+  "access-denied": {
+    "title": "Accesso negato",
+    "message": "Non sei autorizzato ad accedere a questa applicazione.",
+    "message-with-link": "L'accesso a questa applicazione può essere richiesto tramite la nuova",
+    "link-label": "Piattaforma del servizio IT"
+  }
+}

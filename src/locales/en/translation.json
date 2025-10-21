@@ -1,0 +1,49 @@
+{
+  "left-sidebar": {},
+  "authenticated-user": {
+    "theme": {
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "screen": {
+      "label": "Screen",
+      "normal": "Normal",
+      "full": "Full"
+    },
+    "language": {
+      "label": "Language",
+      "english": "English",
+      "italian": "Italian"
+    },
+    "logout": "Logout"
+  },
+  "about": {
+    "description": "{{ appName }} is the application of the new USI Inside information system that lets you...",
+    "release-info": {
+      "title": "Release info",
+      "message": "Version {{ version }}, available since {{ date }}"
+    }
+  },
+  "help-menu": {
+    "title": "Help",
+    "tutorial": "Tutorial",
+    "help-request": "Help request",
+    "about": "About {{ appName }}",
+    "privacy-info-and-tos": "Privacy Policy and Terms of Service"
+  },
+  "privacy-info-and-tos": {
+    "labels": {
+      "updated-at": "Last update: {{datetime}}",
+      "accepted-at": "Reading: {{datetime}}",
+      "accept-button": "I have read and taken note of what was written"
+    }
+  },
+  "access-denied": {
+    "title": "Access denied",
+    "message": "You are not authorized to access this application.",
+    "message-with-link": "Access to this application can be requested via the new",
+    "link-label": "IT service platform"
+  }
+}

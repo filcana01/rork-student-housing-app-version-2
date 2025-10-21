@@ -1,0 +1,1323 @@
+From f1f0ac1ed54ae8ff7ad5ad90b7d3297c42bd9c8d Mon Sep 17 00:00:00 2001
+From: Mauro Nidola <mauro.nidola@usi.ch>
+Date: Mon, 6 Oct 2025 11:51:49 +0200
+Subject: [PATCH] remove DEMO stuff
+
+---
+ src/components/layout/main/AppSidebar.jsx     |  56 +--
+ src/features/.gitkeep                         |   0
+ .../components/AppEntryPoint.jsx              |  18 -
+ .../appEntryPoint/components/index.js         |   2 -
+ src/features/appEntryPoint/index.js           |   2 -
+ src/features/appEntryPoint/routes/index.jsx   |   8 -
+ .../dataGridDemo/components/DataGridDemo.jsx  |  80 ----
+ src/features/dataGridDemo/components/index.js |   2 -
+ src/features/dataGridDemo/index.js            |   2 -
+ src/features/dataGridDemo/routes/index.jsx    |   8 -
+ src/features/pages/components/Page1.jsx       |  47 --
+ src/features/pages/components/Page2.jsx       |  70 ---
+ src/features/pages/components/index.js        |   2 -
+ src/features/pages/index.js                   |   2 -
+ src/features/pages/routes/index.jsx           |  12 -
+ .../components/ReactHookFormDemo.jsx          | 415 ------------------
+ .../reactHookFormDemo/components/index.js     |   2 -
+ src/features/reactHookFormDemo/index.js       |   2 -
+ .../reactHookFormDemo/routes/index.jsx        |   8 -
+ .../components/InnerComponent.jsx             |  75 ----
+ .../components/OuterComponent.jsx             |  56 ---
+ .../components/StateAndPropsDemo.jsx          |  23 -
+ .../stateAndPropsDemo/components/index.js     |   2 -
+ src/features/stateAndPropsDemo/index.js       |   2 -
+ .../stateAndPropsDemo/routes/index.jsx        |   8 -
+ src/locales/en/translation.json               |  41 +-
+ src/locales/it/translation.json               |  41 +-
+ src/routes/defaultRoutes.js                   |   2 +-
+ src/routes/protected.jsx                      |  33 --
+ 29 files changed, 23 insertions(+), 998 deletions(-)
+ create mode 100644 src/features/.gitkeep
+ delete mode 100644 src/features/appEntryPoint/components/AppEntryPoint.jsx
+ delete mode 100644 src/features/appEntryPoint/components/index.js
+ delete mode 100644 src/features/appEntryPoint/index.js
+ delete mode 100644 src/features/appEntryPoint/routes/index.jsx
+ delete mode 100644 src/features/dataGridDemo/components/DataGridDemo.jsx
+ delete mode 100644 src/features/dataGridDemo/components/index.js
+ delete mode 100644 src/features/dataGridDemo/index.js
+ delete mode 100644 src/features/dataGridDemo/routes/index.jsx
+ delete mode 100644 src/features/pages/components/Page1.jsx
+ delete mode 100644 src/features/pages/components/Page2.jsx
+ delete mode 100644 src/features/pages/components/index.js
+ delete mode 100644 src/features/pages/index.js
+ delete mode 100644 src/features/pages/routes/index.jsx
+ delete mode 100644 src/features/reactHookFormDemo/components/ReactHookFormDemo.jsx
+ delete mode 100644 src/features/reactHookFormDemo/components/index.js
+ delete mode 100644 src/features/reactHookFormDemo/index.js
+ delete mode 100644 src/features/reactHookFormDemo/routes/index.jsx
+ delete mode 100644 src/features/stateAndPropsDemo/components/InnerComponent.jsx
+ delete mode 100644 src/features/stateAndPropsDemo/components/OuterComponent.jsx
+ delete mode 100644 src/features/stateAndPropsDemo/components/StateAndPropsDemo.jsx
+ delete mode 100644 src/features/stateAndPropsDemo/components/index.js
+ delete mode 100644 src/features/stateAndPropsDemo/index.js
+ delete mode 100644 src/features/stateAndPropsDemo/routes/index.jsx
+
+diff --git a/src/components/layout/main/AppSidebar.jsx b/src/components/layout/main/AppSidebar.jsx
+index 773482c3..fe05b2e6 100644
+--- a/src/components/layout/main/AppSidebar.jsx
++++ b/src/components/layout/main/AppSidebar.jsx
+@@ -1,18 +1,10 @@
+ import { styled } from "@mui/material/styles";
+ import { Box, Fade, List, Typography, useMediaQuery } from "@mui/material";
+-import {
+-  ViewStreamSharp as ViewStreamSharpIcon,
+-  ViewModule as ViewModuleIcon,
+-  DynamicForm as DynamicFormIcon,
+-  Refresh as RefreshIcon,
+-  Article as ArticleIcon,
+-  AutoStories as AutoStoriesIcon,
+-} from "@mui/icons-material";
+ import PropTypes from "prop-types";
+-import { useTranslation } from "react-i18next";
++// import { useTranslation } from "react-i18next";
+ import { APP_NAME } from "@/config";
+ import UsiLogo from "../UsiLogo";
+-import * as SidebarMenu from "../sidebarMenu";
++// import * as SidebarMenu from "../sidebarMenu";
+ 
+ const Root = styled(Box)({
+   display: "flex",
+@@ -26,7 +18,7 @@ const Root = styled(Box)({
+ });
+ 
+ function AppSidebar({ collapsed }) {
+-  const { t } = useTranslation();
++  // const { t } = useTranslation();
+   const isSm = useMediaQuery((theme) => theme.breakpoints.down("md"));
+ 
+   return (
+@@ -47,35 +39,25 @@ function AppSidebar({ collapsed }) {
+         </Fade>
+       </Box>
+       <List>
+-        <SidebarMenu.Leaf
++        {/* MENU SAMPLE CODE START */}
++
++        <p style={{ padding: "16px" }}>
++          The menu is built using SidebarMenu.Node / SidebarMenu.Leaf
++          components. The commented code below shows two examples, one simple
++          and one with nested entities.
++        </p>
++
++        {/* Simple */}
++        {/* <SidebarMenu.Leaf
+           title={t("left-sidebar.app-entry-point")}
+           hasTooltip={collapsed}
+           icon={<ViewStreamSharpIcon />}
+           link="/app-entry-point"
+           topDivider
+-        />
+-        <SidebarMenu.Leaf
+-          title={t("left-sidebar.data-grid-pro-demo")}
+-          hasTooltip={collapsed}
+-          icon={<ViewModuleIcon />}
+-          link="/data-grid-pro-demo"
+-          topDivider
+-        />
+-        <SidebarMenu.Leaf
+-          title={t("left-sidebar.react-hook-form-demo")}
+-          hasTooltip={collapsed}
+-          icon={<DynamicFormIcon />}
+-          link="/react-hook-form-demo"
+-          topDivider
+-        />
+-        <SidebarMenu.Leaf
+-          title={t("left-sidebar.state-and-props-demo")}
+-          hasTooltip={collapsed}
+-          icon={<RefreshIcon />}
+-          link="/state-and-props-demo"
+-          topDivider
+-        />
+-        <SidebarMenu.Node
++        /> */}
++
++        {/* Nested entries */}
++        {/* <SidebarMenu.Node
+           title={t("left-sidebar.pages")}
+           hasTooltip={collapsed}
+           icon={<AutoStoriesIcon />}
+@@ -98,7 +80,9 @@ function AppSidebar({ collapsed }) {
+             activeBackListedNestedRoutes={["settings"]}
+             nested
+           />
+-        </SidebarMenu.Node>
++        </SidebarMenu.Node> */}
++
++        {/* MENU SAMPLE CODE END */}
+       </List>
+     </Root>
+   );
+diff --git a/src/features/.gitkeep b/src/features/.gitkeep
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/src/features/appEntryPoint/components/AppEntryPoint.jsx b/src/features/appEntryPoint/components/AppEntryPoint.jsx
+deleted file mode 100644
+index 309fa9eb..00000000
+--- a/src/features/appEntryPoint/components/AppEntryPoint.jsx
++++ /dev/null
+@@ -1,18 +0,0 @@
+-import { Container, Typography } from "@mui/material";
+-import { useTranslation } from "react-i18next";
+-
+-function AppEntryPoint() {
+-  const { t } = useTranslation();
+-
+-  return (
+-    <Container maxWidth="xl">
+-      <Typography variant="h5" compnent="h2" gutterBottom>
+-        {t("app-entry-point.title")}
+-      </Typography>
+-
+-      <Typography>{t("app-entry-point.description")}</Typography>
+-    </Container>
+-  );
+-}
+-
+-export default AppEntryPoint;
+diff --git a/src/features/appEntryPoint/components/index.js b/src/features/appEntryPoint/components/index.js
+deleted file mode 100644
+index 141771ba..00000000
+--- a/src/features/appEntryPoint/components/index.js
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-export { default as AppEntryPoint } from "./AppEntryPoint";
+diff --git a/src/features/appEntryPoint/index.js b/src/features/appEntryPoint/index.js
+deleted file mode 100644
+index 0c39faa3..00000000
+--- a/src/features/appEntryPoint/index.js
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-export { AppEntryPointRoutes } from "./routes";
+diff --git a/src/features/appEntryPoint/routes/index.jsx b/src/features/appEntryPoint/routes/index.jsx
+deleted file mode 100644
+index 7641b6e5..00000000
+--- a/src/features/appEntryPoint/routes/index.jsx
++++ /dev/null
+@@ -1,8 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-import { useRoutes } from "react-router";
+-import { AppEntryPoint } from "../components";
+-
+-export function AppEntryPointRoutes() {
+-  const element = useRoutes([{ path: "", element: <AppEntryPoint /> }]);
+-  return element;
+-}
+diff --git a/src/features/dataGridDemo/components/DataGridDemo.jsx b/src/features/dataGridDemo/components/DataGridDemo.jsx
+deleted file mode 100644
+index cc44c41f..00000000
+--- a/src/features/dataGridDemo/components/DataGridDemo.jsx
++++ /dev/null
+@@ -1,80 +0,0 @@
+-import { Box, Container, Typography } from "@mui/material";
+-import { DataGridPremium } from "@mui/x-data-grid-premium";
+-import { useTranslation } from "react-i18next";
+-
+-const columns = [
+-  {
+-    field: "id",
+-    headerName: "ID",
+-  },
+-  {
+-    field: "firstName",
+-    headerName: "First name",
+-    editable: true,
+-  },
+-  {
+-    field: "lastName",
+-    headerName: "Last name",
+-    editable: true,
+-  },
+-  {
+-    field: "age",
+-    headerName: "Age",
+-    type: "number",
+-    editable: true,
+-  },
+-  {
+-    field: "fullName",
+-    headerName: "Full name",
+-    description: "This column has a value getter and is not sortable.",
+-    sortable: false,
+-    valueGetter: (value, row) => `${row.firstName} ${row.lastName}`,
+-  },
+-];
+-
+-const rows = [
+-  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
+-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
+-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
+-  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
+-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
+-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
+-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
+-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
+-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+-  { id: 10, lastName: "Gates", firstName: "Bill", age: 68 },
+-];
+-
+-export default function DataGridDemo() {
+-  const { t } = useTranslation();
+-
+-  return (
+-    <Container maxWidth="xl">
+-      <Typography variant="h5" component="h2" gutterBottom>
+-        {t("data-grid-demo.title")}
+-      </Typography>
+-
+-      <Typography gutterBottom>{t("data-grid-demo.description")}</Typography>
+-
+-      <Box sx={{ height: 420, width: "100%", mt: 2 }}>
+-        <DataGridPremium
+-          initialState={{
+-            pagination: {
+-              paginationModel: { pageSize: 5, page: 0 },
+-            },
+-          }}
+-          rows={rows}
+-          columns={columns}
+-          pagination
+-          pageSizeOptions={[5, 10, 25, 50, 100]}
+-          checkboxSelection
+-          disableRowSelectionOnClick
+-          autosizeOnMount
+-          autosizeOptions={{
+-            includeHeaders: true,
+-          }}
+-        />
+-      </Box>
+-    </Container>
+-  );
+-}
+diff --git a/src/features/dataGridDemo/components/index.js b/src/features/dataGridDemo/components/index.js
+deleted file mode 100644
+index 25e2126c..00000000
+--- a/src/features/dataGridDemo/components/index.js
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-export { default as DataGridDemo } from "./DataGridDemo";
+diff --git a/src/features/dataGridDemo/index.js b/src/features/dataGridDemo/index.js
+deleted file mode 100644
+index ce2095ba..00000000
+--- a/src/features/dataGridDemo/index.js
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-export { DataGridDemoRoutes } from "./routes";
+diff --git a/src/features/dataGridDemo/routes/index.jsx b/src/features/dataGridDemo/routes/index.jsx
+deleted file mode 100644
+index e2cfd84c..00000000
+--- a/src/features/dataGridDemo/routes/index.jsx
++++ /dev/null
+@@ -1,8 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-import { useRoutes } from "react-router";
+-import { DataGridDemo } from "../components";
+-
+-export function DataGridDemoRoutes() {
+-  const element = useRoutes([{ path: "", element: <DataGridDemo /> }]);
+-  return element;
+-}
+diff --git a/src/features/pages/components/Page1.jsx b/src/features/pages/components/Page1.jsx
+deleted file mode 100644
+index 101b3c5a..00000000
+--- a/src/features/pages/components/Page1.jsx
++++ /dev/null
+@@ -1,47 +0,0 @@
+-import { Typography } from "@mui/material";
+-import { useTranslation } from "react-i18next";
+-
+-function Page1() {
+-  const { t } = useTranslation();
+-
+-  return (
+-    <>
+-      <Typography variant="h5" gutterBottom>
+-        {t("left-sidebar.page-1")}
+-      </Typography>
+-      <Typography gutterBottom>
+-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+-        condimentum at ipsum non facilisis. Etiam pulvinar, orci id congue
+-        elementum, dui urna lacinia lectus, sed vestibulum leo dolor vitae
+-        turpis. Praesent quis semper nisi. In hac habitasse platea dictumst.
+-        Aenean sed rutrum turpis. Quisque in pretium arcu. Morbi eu pellentesque
+-        justo. Proin maximus non est id lobortis. Maecenas commodo diam in leo
+-        congue, et convallis risus congue. Etiam accumsan ipsum urna, aliquam
+-        tempor nisl commodo sed. Ut et condimentum sapien. Nullam eleifend
+-        tincidunt arcu eget pretium. Sed lacinia nulla sem, eu efficitur lacus
+-        convallis in. Nulla placerat tortor non elementum vestibulum.
+-      </Typography>
+-      <Typography gutterBottom>
+-        Nullam eu vestibulum dolor. Cras venenatis urna velit, et rutrum dolor
+-        varius vel. Suspendisse potenti. Aliquam ex mi, pretium et dui at,
+-        condimentum posuere mauris. Curabitur ut sapien suscipit, blandit est
+-        vel, fermentum nunc. In volutpat justo ac libero mollis, et posuere eros
+-        blandit. Nunc faucibus et nulla a euismod. Donec sollicitudin neque in
+-        augue fermentum, eu pharetra dui accumsan. Nulla libero nisi,
+-        sollicitudin quis lacus id, rutrum condimentum ligula.
+-      </Typography>
+-      <Typography gutterBottom>
+-        Mauris efficitur iaculis nisl et vestibulum. Aenean quis efficitur
+-        felis. Vestibulum ut lacus sed elit semper suscipit nec id felis.
+-        Praesent a tempus mauris. Donec ac augue ligula. Quisque interdum eu
+-        urna quis facilisis. Donec vel turpis dolor. Morbi ornare, lorem non
+-        luctus convallis, lacus turpis ornare felis, nec porttitor massa elit at
+-        justo. Nullam condimentum velit vitae libero aliquam, eget aliquam nisi
+-        molestie. Proin sed quam vitae felis volutpat porta. Cras sed mi metus.
+-        Cras eu massa finibus, vulputate orci in, bibendum ligula.
+-      </Typography>
+-    </>
+-  );
+-}
+-
+-export default Page1;
+diff --git a/src/features/pages/components/Page2.jsx b/src/features/pages/components/Page2.jsx
+deleted file mode 100644
+index 3257b4c5..00000000
+--- a/src/features/pages/components/Page2.jsx
++++ /dev/null
+@@ -1,70 +0,0 @@
+-import { Typography } from "@mui/material";
+-import { useTranslation } from "react-i18next";
+-
+-function Page2() {
+-  const { t } = useTranslation();
+-
+-  return (
+-    <>
+-      <Typography variant="h5" gutterBottom>
+-        {t("left-sidebar.page-2")}
+-      </Typography>
+-      <Typography gutterBottom>
+-        Narrami l’uomo d’ingegno molteplice, o Musa, che tanto errò, poi che
+-        distrusse la rocca di Troia divina, vide molte città, di molti uomini
+-        l’indole seppe, e assai patí pel mare, cercando com’egli e i compagni
+-        salva potesser la vita serbare, e tornare alla patria. Folli! Vorarono i
+-        bovi del Sol ch’alto valica; e il Nume contese ad essi il dí del
+-        ritorno. O Dea, figlia di Giove, donde che sia movendo, tu narra anche a
+-        me questi eventi.
+-      </Typography>
+-      <Typography gutterBottom>
+-        Già tutti quelli che aveano sfuggita la sorte funesta, erano in patria,
+-        lontani dal pelago omai, dalla guerra. Lui sol, che rivedere bramava la
+-        patria e la sposa, Calipso trattenea nei fulgidi spechi, la Diva, la
+-        veneranda Ninfa, perché lo bramava suo sposo. Ma quando poi, col volger
+-        degli anni, fu giunto anche il tempo ch’egli dovea, per decreto dei
+-        Numi, tornare alla terra d’Itaca, neppur qui, neppur fra gli amici, i
+-        travagli giunse a sfuggire. — Pietà sentivan di lui tutti i Numi, tranne
+-        Posídone; questi serbava immutabile sdegno contro il divino Ulisse, pria
+-        ch’egli giungesse alla patria. Ma degli Etíopi questi gito era alle
+-        terre lontane — sono le genti estreme del mondo, in due zone divisi, gli
+-        uni ove il sol s’immerge nel pelago, gli altri ove sorge — dove di
+-        agnelli e di tori gli offrivano sacre ecatombi. Quivi, assistendo al
+-        convito, godevasi; e stavano gli altri Dei, nella reggia accolti di
+-        Giove signore d’Olimpo. Or, cosí prese a dire degli uomini il padre e
+-        dei Numi, poi che gli risovvenne del nobile Egisto, cui morte inflitto
+-        aveva Oreste, figliuol d’Agamènnone illustre. Dunque, pensando a quello,
+-        fra i Numi cosí prese a dire: «Ahimè, come i mortali dàn sempre la colpa
+-        ai Celesti! Dicono che da noi provengono i mali; ma invece essi, coi
+-        loro peccati, li attirano, in onta al destino. Come ora Egisto: sedusse
+-        la sposa del figlio d’Atreo, contro al destino, e lo sposo sgozzò che
+-        tornava, sebbene la sorte sua sapesse: ché noi l’avevamo ammonito.
+-        Ermète a lui mandando, il vigile d’Argo uccisore, di non uccider l’eroe,
+-        né ambir la sua sposa; ché Oreste, d’Agamènnone figlio, farebbe vendetta
+-        del padre, quando, cresciuto, desío lo pungesse dal suolo paterno. Cosí
+-        gli disse Ermete; né giunse a convincere Egisto, per quanto egli il suo
+-        bene cercasse; ed or tutto ha scontato».
+-      </Typography>
+-      <Typography gutterBottom>
+-        E a lui cosí rispose la Diva dagli occhi azzurrini: «O padre nostro
+-        Croníde, supremo fra tutti i Celesti, ben meritata fu la pena a cui
+-        quegli soggiacque: muoia cosí, chiunque si macchia di simili colpe. Ma
+-        mi si spezza il cuore, pensando al saggissimo Ulisse, misero, che dagli
+-        amici lontano, si strugge di doglia, in mezzo al mare, in un’isola, ov’è
+-        l’umbilico del ponto. Fitta è quell’isola d’alberi; e quivi una Diva
+-        soggiorna nella sua casa: la figlia d’Atlante, nemico dei Numi, che
+-        tutti sa del mare gli abissi, che regge i pilastri alti, che l’un
+-        dall’altro dividono il cielo e la terra. La figlia sua trattiene quel
+-        gramo che sempre si lagna, e di molcirlo tenta con molli, con blande
+-        parole, se mai d’Itaca farlo potesse oblioso. Ma Ulisse vorrebbe anche
+-        il sol fumo vedere che sbalza dai tetti della sua terra, e morire. Ma
+-        questo, o Signore d’Olimpo, punto il cuor tuo non commuove. Nell’ampie
+-        di Troia pianure, presso le navi argive, non t’erano forse gradite le
+-        sacre offerte d’Ulisse? Con lui perché tanto ti crucci?»
+-      </Typography>
+-    </>
+-  );
+-}
+-
+-export default Page2;
+diff --git a/src/features/pages/components/index.js b/src/features/pages/components/index.js
+deleted file mode 100644
+index 8a1fce53..00000000
+--- a/src/features/pages/components/index.js
++++ /dev/null
+@@ -1,2 +0,0 @@
+-export { default as Page1 } from "./Page1";
+-export { default as Page2 } from "./Page2";
+diff --git a/src/features/pages/index.js b/src/features/pages/index.js
+deleted file mode 100644
+index b36cc006..00000000
+--- a/src/features/pages/index.js
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-export { PagesRoutes } from "./routes";
+diff --git a/src/features/pages/routes/index.jsx b/src/features/pages/routes/index.jsx
+deleted file mode 100644
+index d7028a5a..00000000
+--- a/src/features/pages/routes/index.jsx
++++ /dev/null
+@@ -1,12 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-import { useRoutes } from "react-router";
+-import { Container } from "@mui/material";
+-import { Page1, Page2 } from "../components";
+-
+-export function PagesRoutes() {
+-  const element = useRoutes([
+-    { path: "page-1", element: <Page1 /> },
+-    { path: "page-2", element: <Page2 /> },
+-  ]);
+-  return <Container maxWidth="md">{element}</Container>;
+-}
+diff --git a/src/features/reactHookFormDemo/components/ReactHookFormDemo.jsx b/src/features/reactHookFormDemo/components/ReactHookFormDemo.jsx
+deleted file mode 100644
+index 8d5c85bb..00000000
+--- a/src/features/reactHookFormDemo/components/ReactHookFormDemo.jsx
++++ /dev/null
+@@ -1,415 +0,0 @@
+-import { useState } from "react";
+-import {
+-  Box,
+-  Button,
+-  Container,
+-  FormControl,
+-  FormControlLabel,
+-  FormHelperText,
+-  FormLabel,
+-  Grid,
+-  MenuItem,
+-  TextField,
+-  Typography,
+-  Radio,
+-  RadioGroup,
+-} from "@mui/material";
+-import { DatePicker, DateTimePicker } from "@mui/x-date-pickers-pro";
+-import { useTranslation } from "react-i18next";
+-import { useForm, Controller } from "react-hook-form";
+-import { DevTool } from "@/lib/hookform/devtools";
+-import { yupResolver } from "@hookform/resolvers/yup";
+-import * as Yup from "yup";
+-import { useAdapterDateFns } from "@/hooks/datePickers";
+-import { Flash } from "@usi-inside/notifications";
+-import SavePrompt from "@/components/SavePrompt";
+-import RecordDetails from "@usi-inside/record-details";
+-
+-const useLocalizedSchema = () => {
+-  const { t } = useTranslation();
+-  return Yup.object()
+-    .shape({
+-      idCategory: Yup.number()
+-        .positive()
+-        .required()
+-        .label(t("react-hook-form-demo.project.category")),
+-      nameEn: Yup.string()
+-        .max(100)
+-        .required()
+-        .label(t("react-hook-form-demo.project.nameEn")),
+-      nameIt: Yup.string()
+-        .max(100)
+-        .required()
+-        .label(t("react-hook-form-demo.project.nameIt")),
+-      deadline: Yup.date()
+-        .nullable()
+-        .label(t("react-hook-form-demo.project.deadline")),
+-      presentation: Yup.date()
+-        .nullable()
+-        .label(t("react-hook-form-demo.project.presentation")),
+-    })
+-    .required();
+-};
+-
+-const getDefaultValues = ({
+-  idCategory,
+-  nameIt,
+-  nameEn,
+-  deadline,
+-  presentation,
+-  isActive,
+-}) => ({
+-  idCategory,
+-  nameIt,
+-  nameEn,
+-  deadline,
+-  presentation,
+-  isActive: +isActive,
+-});
+-
+-const projectCategories = [
+-  {
+-    id: 1,
+-    nameIt: "Category 1",
+-    nameEn: "Categoria 1",
+-  },
+-  {
+-    id: 2,
+-    nameIt: "Category 2",
+-    nameEn: "Categoria 2",
+-  },
+-];
+-
+-const getCategory = (categoryId) =>
+-  projectCategories.filter(
+-    (projectCategory) => projectCategory.id === categoryId
+-  )[0];
+-
+-export default function ReactHookFormDemo() {
+-  const { t } = useTranslation();
+-  const dateFns = useAdapterDateFns();
+-  const schema = useLocalizedSchema();
+-  const [editingMode, setEditingMode] = useState(false);
+-  const [project, setProject] = useState({
+-    id: 1,
+-    idCategory: 1,
+-    nameEn: "My first project",
+-    nameIt: "Il mio primo progetto",
+-    deadline: new Date(2024, 11, 31),
+-    presentation: new Date(2025, 0, 15, 9, 30, 0),
+-    category: getCategory(1),
+-    isActive: false,
+-  });
+-  const defaultValues = getDefaultValues(project);
+-  const {
+-    handleSubmit,
+-    control,
+-    register,
+-    formState: { isDirty, isSubmitting, errors },
+-  } = useForm({
+-    mode: "onChange",
+-    defaultValues,
+-    resolver: yupResolver(schema),
+-  });
+-  const onSubmit = async (data) => {
+-    Flash.info("Updating project...");
+-
+-    setTimeout(() => {
+-      Flash.success("The project has been updated successfully!");
+-
+-      setProject({
+-        ...project,
+-        ...data,
+-        deadline: data.deadline?.toString(),
+-        presentation: data.presentation?.toString(),
+-        category: getCategory(data.idCategory),
+-      });
+-      setEditingMode(false);
+-    }, 1000);
+-  };
+-
+-  return (
+-    <Container maxWidth="xl">
+-      <Typography variant="h5" component="h2" gutterBottom>
+-        {t("react-hook-form-demo.title")}
+-      </Typography>
+-      <Typography gutterBottom>
+-        {t("react-hook-form-demo.description")}
+-      </Typography>
+-      {editingMode ? (
+-        <>
+-          <Typography variant="h6" component="h3" sx={{ my: 2.7 }}>
+-            {t("react-hook-form-demo.project.title")}
+-          </Typography>
+-
+-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+-            {/* Leave page confirmation dialog */}
+-            <SavePrompt
+-              isBlocking={isDirty && !isSubmitting}
+-              isSaving={isSubmitting}
+-              onSave={async () =>
+-                new Promise((resolve, reject) => {
+-                  handleSubmit(
+-                    async (data) => {
+-                      await onSubmit(data);
+-                      resolve();
+-                    },
+-                    () => {
+-                      Flash.error(
+-                        "Unable to proceed as there are one or more errors, please correct red fields!"
+-                      );
+-                      reject();
+-                    }
+-                  )();
+-                })
+-              }
+-            />
+-            <Grid container spacing={2}>
+-              <Grid
+-                size={{
+-                  xs: 12,
+-                  md: 6,
+-                }}
+-              >
+-                <Controller
+-                  name="idCategory"
+-                  control={control}
+-                  render={({ field }) => (
+-                    <TextField
+-                      label={t("react-hook-form-demo.project.category")}
+-                      select
+-                      error={!!errors.idCategory}
+-                      helperText={
+-                        errors.idCategory ? errors.idCategory?.message : ""
+-                      }
+-                      fullWidth
+-                      {...field}
+-                    >
+-                      {projectCategories.map((projectCategory) => (
+-                        <MenuItem
+-                          key={`pc-${projectCategory.id}`}
+-                          value={projectCategory.id}
+-                        >
+-                          {projectCategory.nameEn}
+-                        </MenuItem>
+-                      ))}
+-                    </TextField>
+-                  )}
+-                />
+-              </Grid>
+-              <Grid size={12}>
+-                <TextField
+-                  label={t("react-hook-form-demo.project.nameEn")}
+-                  error={!!errors.nameEn}
+-                  helperText={errors.nameEn ? errors.nameEn?.message : ""}
+-                  fullWidth
+-                  {...register("nameEn")}
+-                />
+-              </Grid>
+-              <Grid size={12}>
+-                <TextField
+-                  label={t("react-hook-form-demo.project.nameIt")}
+-                  error={!!errors.nameIt}
+-                  helperText={errors.nameIt ? errors.nameIt?.message : ""}
+-                  fullWidth
+-                  {...register("nameIt")}
+-                />
+-              </Grid>
+-              <Grid size={12}>
+-                <Controller
+-                  name="deadline"
+-                  control={control}
+-                  render={({
+-                    field: { ref, ...field },
+-                    fieldState: { error },
+-                  }) => (
+-                    <DatePicker
+-                      label={t("react-hook-form-demo.project.deadline")}
+-                      slotProps={{
+-                        field: {
+-                          clearable: true,
+-                          error: !!error,
+-                          helperText: error?.message,
+-                          fullWidth: true,
+-                        },
+-                      }}
+-                      inputRef={ref}
+-                      {...field}
+-                    />
+-                  )}
+-                />
+-              </Grid>
+-              <Grid size={12}>
+-                <Controller
+-                  name="presentation"
+-                  control={control}
+-                  render={({
+-                    field: { ref, ...field },
+-                    fieldState: { error },
+-                  }) => (
+-                    <DateTimePicker
+-                      label={t("react-hook-form-demo.project.presentation")}
+-                      slotProps={{
+-                        field: {
+-                          clearable: true,
+-                          error: !!error,
+-                          helperText: error?.message,
+-                          fullWidth: true,
+-                        },
+-                      }}
+-                      inputRef={ref}
+-                      {...field}
+-                    />
+-                  )}
+-                />
+-              </Grid>
+-              <Grid
+-                size={{
+-                  xs: 12,
+-                  sm: 6,
+-                }}
+-              >
+-                <FormControl
+-                  component="fieldset"
+-                  required
+-                  error={!!errors.isActive}
+-                >
+-                  <FormLabel component="legend">
+-                    {t("react-hook-form-demo.project.isActive")}
+-                  </FormLabel>
+-                  <Controller
+-                    name="isActive"
+-                    control={control}
+-                    render={({ field }) => (
+-                      <RadioGroup
+-                        row
+-                        aria-label="isActive"
+-                        name="row-radio-buttons-group"
+-                        {...field}
+-                      >
+-                        <FormControlLabel
+-                          value="1"
+-                          control={<Radio />}
+-                          label="Yes"
+-                        />
+-                        <FormControlLabel
+-                          value="0"
+-                          control={<Radio />}
+-                          label="No"
+-                        />
+-                      </RadioGroup>
+-                    )}
+-                  />
+-                  {errors.isActive && (
+-                    <FormHelperText>{errors.isActive?.message}</FormHelperText>
+-                  )}
+-                </FormControl>
+-              </Grid>
+-              <Grid size={12}>
+-                <Box display="flex" flexWrap="wrap">
+-                  <Button
+-                    type="submit"
+-                    variant="contained"
+-                    color="primary"
+-                    disabled={isSubmitting}
+-                    sx={(theme) => ({
+-                      mr: theme.spacing(2),
+-                      mb: theme.spacing(2),
+-                    })}
+-                  >
+-                    Save
+-                  </Button>
+-                  <Button
+-                    variant="contained"
+-                    color="secondary"
+-                    sx={(theme) => ({
+-                      mr: theme.spacing(2),
+-                      mb: theme.spacing(2),
+-                    })}
+-                    onClick={() => setEditingMode(false)}
+-                  >
+-                    Cancel
+-                  </Button>
+-                </Box>
+-              </Grid>
+-            </Grid>
+-          </form>
+-          {
+-            /* set up the dev tool */
+-            <DevTool control={control} />
+-          }
+-        </>
+-      ) : (
+-        <RecordDetails.Rows spacing={1}>
+-          <RecordDetails.RowHeading
+-            title={t("react-hook-form-demo.project.title")}
+-            variant="h6"
+-            margin={1}
+-          />
+-          <RecordDetails.RowText
+-            label={t("react-hook-form-demo.project.id")}
+-            text={project.id}
+-          />
+-          <RecordDetails.RowText
+-            label={t("react-hook-form-demo.project.category")}
+-            text={project.category.nameEn}
+-          />
+-          <RecordDetails.RowText
+-            label={t("react-hook-form-demo.project.nameEn")}
+-            text={project.nameEn}
+-          />
+-          <RecordDetails.RowText
+-            label={t("react-hook-form-demo.project.nameIt")}
+-            text={project.nameIt}
+-          />
+-          <RecordDetails.RowText
+-            label={t("react-hook-form-demo.project.deadline")}
+-            text={
+-              project.deadline
+-                ? dateFns.format(dateFns.date(project.deadline), "fullDate")
+-                : ""
+-            }
+-          />
+-          <RecordDetails.RowText
+-            label={t("react-hook-form-demo.project.presentation")}
+-            text={
+-              project.presentation
+-                ? [
+-                    dateFns.format(
+-                      dateFns.date(project.presentation),
+-                      "fullDate"
+-                    ),
+-                    dateFns.format(
+-                      dateFns.date(project.presentation),
+-                      "fullTime24h"
+-                    ),
+-                  ].join(" ")
+-                : ""
+-            }
+-          />
+-          <RecordDetails.RowText
+-            label={t("react-hook-form-demo.project.isActive")}
+-            text={
+-              project.isActive
+-                ? t("react-hook-form-demo.project.active.yes")
+-                : t("react-hook-form-demo.project.active.no")
+-            }
+-          />
+-          <RecordDetails.Row divider={false}>
+-            <Button
+-              type="submit"
+-              variant="contained"
+-              color="primary"
+-              sx={{
+-                mt: 1,
+-              }}
+-              onClick={() => setEditingMode(true)}
+-            >
+-              Edit
+-            </Button>
+-          </RecordDetails.Row>
+-        </RecordDetails.Rows>
+-      )}
+-    </Container>
+-  );
+-}
+diff --git a/src/features/reactHookFormDemo/components/index.js b/src/features/reactHookFormDemo/components/index.js
+deleted file mode 100644
+index eb24ab0f..00000000
+--- a/src/features/reactHookFormDemo/components/index.js
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-export { default as ReactHookFormDemo } from "./ReactHookFormDemo";
+diff --git a/src/features/reactHookFormDemo/index.js b/src/features/reactHookFormDemo/index.js
+deleted file mode 100644
+index 06956dc2..00000000
+--- a/src/features/reactHookFormDemo/index.js
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-export { ReactHookFormDemoRoutes } from "./routes";
+diff --git a/src/features/reactHookFormDemo/routes/index.jsx b/src/features/reactHookFormDemo/routes/index.jsx
+deleted file mode 100644
+index 0f10f497..00000000
+--- a/src/features/reactHookFormDemo/routes/index.jsx
++++ /dev/null
+@@ -1,8 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-import { useRoutes } from "react-router";
+-import { ReactHookFormDemo } from "../components";
+-
+-export function ReactHookFormDemoRoutes() {
+-  const element = useRoutes([{ path: "", element: <ReactHookFormDemo /> }]);
+-  return element;
+-}
+diff --git a/src/features/stateAndPropsDemo/components/InnerComponent.jsx b/src/features/stateAndPropsDemo/components/InnerComponent.jsx
+deleted file mode 100644
+index 0ed16a0f..00000000
+--- a/src/features/stateAndPropsDemo/components/InnerComponent.jsx
++++ /dev/null
+@@ -1,75 +0,0 @@
+-import { useState } from "react";
+-import {
+-  Button,
+-  FormControl,
+-  FormControlLabel,
+-  FormLabel,
+-  Grid,
+-  Radio,
+-  RadioGroup,
+-  Typography,
+-} from "@mui/material";
+-import PropTypes from "prop-types";
+-
+-const ACCEPTED_COLORS = ["primary", "secondary", "error"];
+-const DEFAULT_COLOR = ACCEPTED_COLORS[0];
+-
+-function InnerComponent({ color = DEFAULT_COLOR }) {
+-  const selectedColor = ACCEPTED_COLORS.includes(color) ? color : DEFAULT_COLOR;
+-  const defaultSize = "small";
+-  const [size, setSize] = useState(defaultSize);
+-  return (
+-    <fieldset>
+-      <legend>Inner component (color as prop, size in state)</legend>
+-      <Grid container spacing={2}>
+-        <Grid size={12}>
+-          <FormControl>
+-            <FormLabel id="size-radio-buttons-group-label">Size</FormLabel>
+-            <RadioGroup
+-              row
+-              aria-labelledby="size-radio-buttons-group-label"
+-              name="size-radio-buttons-group"
+-              defaultValue={defaultSize}
+-              onChange={(event) => setSize(event.target.value)}
+-            >
+-              <FormControlLabel
+-                value="small"
+-                control={<Radio />}
+-                label="Small"
+-              />
+-              <FormControlLabel
+-                value="medium"
+-                control={<Radio />}
+-                label="Medium"
+-              />
+-              <FormControlLabel
+-                value="large"
+-                control={<Radio />}
+-                label="Large"
+-              />
+-            </RadioGroup>
+-          </FormControl>
+-        </Grid>
+-        <Grid size={12}>
+-          <Button color={selectedColor} size={size} variant="contained">
+-            Special button
+-          </Button>
+-        </Grid>
+-        <Grid size={12}>
+-          <Typography>
+-            Color: <strong data-testid="color">{selectedColor}</strong>
+-          </Typography>
+-          <Typography>
+-            Size: <strong>{size}</strong>
+-          </Typography>
+-        </Grid>
+-      </Grid>
+-    </fieldset>
+-  );
+-}
+-
+-InnerComponent.propTypes = {
+-  color: PropTypes.string,
+-};
+-
+-export default InnerComponent;
+diff --git a/src/features/stateAndPropsDemo/components/OuterComponent.jsx b/src/features/stateAndPropsDemo/components/OuterComponent.jsx
+deleted file mode 100644
+index 1bd3f816..00000000
+--- a/src/features/stateAndPropsDemo/components/OuterComponent.jsx
++++ /dev/null
+@@ -1,56 +0,0 @@
+-import { useState } from "react";
+-import {
+-  FormControl,
+-  FormControlLabel,
+-  FormLabel,
+-  Grid,
+-  Radio,
+-  RadioGroup,
+-} from "@mui/material";
+-import InnerComponent from "./InnerComponent";
+-
+-function OuterComponent() {
+-  const defaultColor = "primary";
+-  const [color, setColor] = useState(defaultColor);
+-
+-  return (
+-    <fieldset>
+-      <legend>Outer component</legend>
+-      <Grid container spacing={2}>
+-        <Grid size={12}>
+-          <FormControl>
+-            <FormLabel id="color-radio-buttons-group-label">Color</FormLabel>
+-            <RadioGroup
+-              row
+-              aria-labelledby="color-radio-buttons-group-label"
+-              name="color-radio-buttons-group"
+-              defaultValue={defaultColor}
+-              onChange={(event) => setColor(event.target.value)}
+-            >
+-              <FormControlLabel
+-                value="primary"
+-                control={<Radio />}
+-                label="Primary"
+-              />
+-              <FormControlLabel
+-                value="secondary"
+-                control={<Radio />}
+-                label="Secondary"
+-              />
+-              <FormControlLabel
+-                value="error"
+-                control={<Radio />}
+-                label="Error"
+-              />
+-            </RadioGroup>
+-          </FormControl>
+-        </Grid>
+-        <Grid size={12}>
+-          <InnerComponent color={color} />
+-        </Grid>
+-      </Grid>
+-    </fieldset>
+-  );
+-}
+-
+-export default OuterComponent;
+diff --git a/src/features/stateAndPropsDemo/components/StateAndPropsDemo.jsx b/src/features/stateAndPropsDemo/components/StateAndPropsDemo.jsx
+deleted file mode 100644
+index 38f810f2..00000000
+--- a/src/features/stateAndPropsDemo/components/StateAndPropsDemo.jsx
++++ /dev/null
+@@ -1,23 +0,0 @@
+-import { Container, Typography } from "@mui/material";
+-import { useTranslation } from "react-i18next";
+-import OuterComponent from "./OuterComponent";
+-
+-function StateAndPropsDemo() {
+-  const { t } = useTranslation();
+-
+-  return (
+-    <Container maxWidth="xl">
+-      <Typography variant="h5" compnent="h2" gutterBottom>
+-        {t("state-and-props-demo.title")}
+-      </Typography>
+-
+-      <Typography sx={{ mb: 2 }}>
+-        {t("state-and-props-demo.description")}
+-      </Typography>
+-
+-      <OuterComponent />
+-    </Container>
+-  );
+-}
+-
+-export default StateAndPropsDemo;
+diff --git a/src/features/stateAndPropsDemo/components/index.js b/src/features/stateAndPropsDemo/components/index.js
+deleted file mode 100644
+index 7a26020b..00000000
+--- a/src/features/stateAndPropsDemo/components/index.js
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-export { default as StateAndPropsDemo } from "./StateAndPropsDemo";
+diff --git a/src/features/stateAndPropsDemo/index.js b/src/features/stateAndPropsDemo/index.js
+deleted file mode 100644
+index 8f73dd40..00000000
+--- a/src/features/stateAndPropsDemo/index.js
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-export { StateAndPropsDemoRoutes } from "./routes";
+diff --git a/src/features/stateAndPropsDemo/routes/index.jsx b/src/features/stateAndPropsDemo/routes/index.jsx
+deleted file mode 100644
+index c0045ef6..00000000
+--- a/src/features/stateAndPropsDemo/routes/index.jsx
++++ /dev/null
+@@ -1,8 +0,0 @@
+-/* eslint-disable import/prefer-default-export */
+-import { useRoutes } from "react-router";
+-import { StateAndPropsDemo } from "../components";
+-
+-export function StateAndPropsDemoRoutes() {
+-  const element = useRoutes([{ path: "", element: <StateAndPropsDemo /> }]);
+-  return element;
+-}
+diff --git a/src/locales/en/translation.json b/src/locales/en/translation.json
+index 587ddedf..ca69ebf7 100644
+--- a/src/locales/en/translation.json
++++ b/src/locales/en/translation.json
+@@ -1,18 +1,5 @@
+ {
+-  "app-entry-point": {
+-    "title": "App entry point",
+-    "description": "This is the entry point of the application.",
+-    "configuration": "Configuration"
+-  },
+-  "left-sidebar": {
+-    "app-entry-point": "Entry point",
+-    "data-grid-pro-demo": "Data grid demo",
+-    "react-hook-form-demo": "RHF Demo",
+-    "state-and-props-demo": "State and props demo",
+-    "pages": "Pages",
+-    "page-1": "Page 1",
+-    "page-2": "Page 2"
+-  },
++  "left-sidebar": {},
+   "authenticated-user": {
+     "theme": {
+       "label": "Theme",
+@@ -58,31 +45,5 @@
+     "message": "You are not authorized to access this application.",
+     "message-with-link": "Access to this application can be requested via the new",
+     "link-label": "IT service platform"
+-  },
+-  "data-grid-demo": {
+-    "title": "Data grid demo",
+-    "description": "A fast and extensible react component, rich in features and available in MIT or Commercial versions."
+-  },
+-  "react-hook-form-demo": {
+-    "title": "React Hook Form demo",
+-    "description": "One of the best libraries to manage forms in React.",
+-    "project": {
+-      "title": "Project",
+-      "id": "ID",
+-      "category": "Category",
+-      "nameEn": "Name EN",
+-      "nameIt": "Name IT",
+-      "deadline": "Deadline",
+-      "presentation": "Presentation",
+-      "isActive": "Is active?",
+-      "active": {
+-        "no": "No",
+-        "yes": "Yes"
+-      }
+-    }
+-  },
+-  "state-and-props-demo": {
+-    "title": "State and props demo",
+-    "description": "This page should help you understand the state and properties of a component."
+   }
+ }
+diff --git a/src/locales/it/translation.json b/src/locales/it/translation.json
+index b171de9d..c7a2f580 100644
+--- a/src/locales/it/translation.json
++++ b/src/locales/it/translation.json
+@@ -1,18 +1,5 @@
+ {
+-  "app-entry-point": {
+-    "title": "Punto di ingresso dell'app",
+-    "description": "Questo è il punto di ingresso dell'applicazione.",
+-    "configuration": "Configurazione"
+-  },
+-  "left-sidebar": {
+-    "app-entry-point": "Punto di ingresso",
+-    "data-grid-pro-demo": "Data grid demo",
+-    "react-hook-form-demo": "RHF Demo",
+-    "state-and-props-demo": "Stato e proprietà demo",
+-    "pages": "Pagine",
+-    "page-1": "Pagina 1",
+-    "page-2": "Pagina 2"
+-  },
++  "left-sidebar": {},
+   "authenticated-user": {
+     "theme": {
+       "label": "Tema",
+@@ -58,31 +45,5 @@
+     "message": "Non sei autorizzato ad accedere a questa applicazione.",
+     "message-with-link": "L'accesso a questa applicazione può essere richiesto tramite la nuova",
+     "link-label": "Piattaforma del servizio IT"
+-  },
+-  "data-grid-demo": {
+-    "title": "Data grid demo",
+-    "description": "Una componente react veloce ed estendibile, ricco di funzionalità e disponibile nelle versioni MIT o Commercial."
+-  },
+-  "react-hook-form-demo": {
+-    "title": "React Hook Form demo",
+-    "description": "Una delle migliori librerie per la gestione dei form in React.",
+-    "project": {
+-      "title": "Progetto",
+-      "id": "ID",
+-      "category": "Categoria",
+-      "nameEn": "Nome EN",
+-      "nameIt": "Nome IT",
+-      "deadline": "Scadenza",
+-      "presentation": "Presentazione",
+-      "isActive": "È attivo?",
+-      "active": {
+-        "no": "No",
+-        "yes": "Sì"
+-      }
+-    }
+-  },
+-  "state-and-props-demo": {
+-    "title": "Demo di stato e proprietà",
+-    "description": "Questa pagina dovrebbe aiutare a comprendere stato e proprietà di un componente."
+   }
+ }
+diff --git a/src/routes/defaultRoutes.js b/src/routes/defaultRoutes.js
+index 8dbb4d67..8c1933ac 100644
+--- a/src/routes/defaultRoutes.js
++++ b/src/routes/defaultRoutes.js
+@@ -4,7 +4,7 @@ import { useHasTos, useTos } from "@/hooks/tos";
+ export const defaultRoutes = {
+   accessDenied: "/access-denied",
+   tos: "/privacy-info-and-tos",
+-  entryPoint: "/app-entry-point",
++  entryPoint: "/no-accessible-sections",
+ };
+ 
+ export const useDefaultRoute = () => {
+diff --git a/src/routes/protected.jsx b/src/routes/protected.jsx
+index 0302936e..993fd363 100644
+--- a/src/routes/protected.jsx
++++ b/src/routes/protected.jsx
+@@ -1,10 +1,5 @@
+ /* eslint-disable import/prefer-default-export */
+ import { Navigate } from "react-router";
+-import { AppEntryPointRoutes } from "@/features/appEntryPoint";
+-import { DataGridDemoRoutes } from "@/features/dataGridDemo";
+-import { ReactHookFormDemoRoutes } from "@/features/reactHookFormDemo";
+-import { StateAndPropsDemoRoutes } from "@/features/stateAndPropsDemo";
+-import { PagesRoutes } from "@/features/pages";
+ import { AccessDenied, Layout, Loading, TermOfServices } from "@/components";
+ import Errors from "@usi-inside/errors";
+ import { defaultRoutes } from "./defaultRoutes";
+@@ -47,34 +42,6 @@ export const getProtectedRoutes = (defaultRoute, hasTos) => {
+       element: <Layout.Main />,
+       children: [
+         { path: "/", element: <Navigate replace to={defaultRoute} /> },
+-        {
+-          path: "/app-entry-point",
+-          children: [
+-            { path: "*", index: true, element: <AppEntryPointRoutes /> },
+-          ],
+-        },
+-        {
+-          path: "/data-grid-pro-demo",
+-          children: [
+-            { path: "*", index: true, element: <DataGridDemoRoutes /> },
+-          ],
+-        },
+-        {
+-          path: "/react-hook-form-demo",
+-          children: [
+-            { path: "*", index: true, element: <ReactHookFormDemoRoutes /> },
+-          ],
+-        },
+-        {
+-          path: "/state-and-props-demo",
+-          children: [
+-            { path: "*", index: true, element: <StateAndPropsDemoRoutes /> },
+-          ],
+-        },
+-        {
+-          path: "/pages",
+-          children: [{ path: "*", index: true, element: <PagesRoutes /> }],
+-        },
+         ...[
+           hasTos
+             ? { path: defaultRoutes.tos, element: <TermOfServices /> }
+-- 
+2.50.1 (Apple Git-155)
+

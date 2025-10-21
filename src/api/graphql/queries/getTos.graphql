@@ -1,0 +1,7 @@
+# import "../fragments/TosData.graphql";
+
+query GetTos {
+  tos: disclaimer {
+    ...TosData
+  }
+}

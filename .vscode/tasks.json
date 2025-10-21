@@ -1,0 +1,79 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // PUBLISH
+    {
+      "label": "PublishToDev",
+      "type": "shell",
+      "command": "mkdir -p deploy/development ; umount -f deploy/development ; mount -t smbfs smb://${input:username}@vmweb1.usilu.net/dev$ deploy/development && yarn build:dev && rm -rf deploy/development/modules/${input:module-directory}/* && cp -r dist/development/* deploy/development/modules/${input:module-directory} && umount -f deploy/development",
+      "windows": {
+        "command": "yarn build:dev; cp -r -Force dist/development/* //vmweb1/dev$/modules/${input:module-directory}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "PublishToSta",
+      "type": "shell",
+      "command": "mkdir -p deploy/staging ; umount -f deploy/staging ; mount -t smbfs smb://${input:username}@vmweb1.usilu.net/sta$ deploy/staging && yarn build:sta && rm -rf deploy/staging/modules/${input:module-directory}/* && cp -r dist/staging/* deploy/staging/modules/${input:module-directory} && umount -f deploy/staging",
+      "windows": {
+        "command": "yarn build:sta; cp -r -Force dist/staging/* //vmweb1/sta$/modules/${input:module-directory}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "PublishToProduction",
+      "type": "shell",
+      "command": "mkdir -p deploy/production ; umount -f deploy/production ; mount -t smbfs smb://${input:username}@usiweb1.usilu.net/inside$ deploy/production && yarn build:prod && rm -rf deploy/production/modules/${input:module-directory}/* && cp -r dist/production/* deploy/production/modules/${input:module-directory} && umount -f deploy/production",
+      "windows": {
+        "command": "yarn build:prod; cp -r -Force dist/production/* //usiweb1/inside$/modules/${input:module-directory}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    // RELEASE
+    {
+      "label": "Release new version",
+      "type": "shell",
+      "command": "yarn",
+      "args": [
+        "release",
+        "${input:versionInput}"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "username",
+      "description": "Username to use when mounting webserver share (SMB)",
+      "type": "promptString"
+    },
+    {
+      "id": "module-directory",
+      "description": "Module directory (must exist in webserver share)",
+      "type": "promptString",
+      "default": "housing"
+    },
+    {
+      "id": "versionInput",
+      "type": "promptString",
+      "description": "Enter bump type or semver (major/minor/patch/premajor/preminor/prepatch/prerelease/alpha/beta/rc/x.y.z)",
+      "default": "patch"
+    }
+  ]
+}
