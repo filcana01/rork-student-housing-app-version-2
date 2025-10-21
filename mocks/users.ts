@@ -1,0 +1,67 @@
+import { User } from '@/types';
+
+export const mockUsers: User[] = [
+  {
+    id: 'user1',
+    firstName: 'Marco',
+    lastName: 'Bernasconi',
+    email: 'marco.bernasconi@email.ch',
+    phone: '+41 76 123 45 67',
+    role: 'known_person',
+    username: 'mbernasconi',
+    createdAt: '2024-06-15',
+  },
+  {
+    id: 'user2',
+    firstName: 'Laura',
+    lastName: 'Manzoni',
+    email: 'laura.manzoni@email.ch',
+    phone: '+41 79 987 65 43',
+    companyName: 'Immobiliare Lugano SA',
+    role: 'known_company',
+    username: 'lmanzoni',
+    createdAt: '2024-03-10',
+  },
+  {
+    id: 'user3',
+    firstName: 'Luca',
+    lastName: 'Cattaneo',
+    email: 'luca.cattaneo@student.usi.ch',
+    phone: '+41 78 555 66 77',
+    role: 'verified_student',
+    username: 'lcattaneo',
+    createdAt: '2024-09-01',
+  },
+  {
+    id: 'user4',
+    firstName: 'Sofia',
+    lastName: 'Cereghetti',
+    email: 'sofia.cereghetti@student.supsi.ch',
+    phone: '+41 77 777 88 99',
+    role: 'verified_student',
+    username: 'scereghetti',
+    createdAt: '2024-08-20',
+  },
+  {
+    id: 'user5',
+    firstName: 'Andrea',
+    lastName: 'Fontana',
+    email: 'andrea.fontana@studenthome.ch',
+    phone: '+41 91 911 45 66',
+    role: 'admin',
+    username: 'afontana',
+    createdAt: '2023-01-15',
+  },
+  {
+    id: 'current_user',
+    firstName: 'Alessandro',
+    lastName: 'Rossi',
+    email: 'test@studenthome.ch',
+    phone: '+41 78 333 11 22',
+    role: 'verified_student',
+    username: 'arossi',
+    createdAt: '2025-01-01',
+  },
+];
+
+export const currentUser = mockUsers.find(u => u.id === 'current_user')!;
